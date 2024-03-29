@@ -33,3 +33,32 @@ body {
     background: var(--back-color);
     padding: 1em;
 }
+
+#camp-activities-inquiry > h1 {
+    padding-bottom: 0.25em;
+}
+
+#camp-activities-inquiry > form {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em;
+    gap: 0.25em;
+    width: 100%;
+    border-top: 1px solid black;
+}
+
+#camp-activities-inquiry > form > :is(textarea, select) {
+    width: 100%;
+    resize: none;
+    padding: 0.1em;
+}
+
+#camp-activities-inquiry > form > button {
+    align-self: flex-end;
+    width: 100%;
+    padding: 0.5em 1em;
+}
+
+#camp-activities-inquiry > form > label {
+    padding: 0.5em 0 0.25em;
+}
