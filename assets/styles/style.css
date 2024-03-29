@@ -69,3 +69,29 @@ body {
 #activity-select > option[value=""] {
     display:none;
 }
+
+#camp-activities-inquiry:has(option:checked)::after {
+    content: "";
+    display: block;
+    position: fixed;
+    bottom: 0; left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 50%;
+    background-color: red;
+}
+#camp-activities-inquiry:has(option[value="hiking"]:checked)::after {
+    background-color: green;
+}
+#camp-activities-inquiry:has(option[value="canoeing"]:checked)::after {
+    background-color: blue;
+}
+#camp-activities-inquiry:has(option[value="fishing"]:checked)::after {
+    background-color: cyan;
+}
+#camp-activities-inquiry:has(option[value="crafts"]:checked)::after {
+    background-color: brown;
+}
+#camp-activities-inquiry:has(option[value="archery"]:checked)::after {
+    background-color: orange;
+}
