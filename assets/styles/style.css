@@ -7,9 +7,16 @@
 
 :root {
     --min-width: 280px;
-    --max-width: 50em;
+    --max-width: 50rem;
 
     --back-color: #EEEEEEDD;
+
+    --back-img: url('../images/tents.jpg');
+    --hiking-img: url('../images/hiking.jpg');
+    --canoeing-img: url('../images/canoeing.jpg');
+    --fishing-img: url('../images/fishing.jpg');
+    --crafts-img: url('../images/crafts.jpg');
+    --archery-img: url('../images/archery.jpg');
 }
 
 html,body {
@@ -22,27 +29,28 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: url('../images/lake.jpg') no-repeat center/cover;
+    background: var(--back-img) no-repeat center/cover;
+    transition: background-image 2s;
 }
 
 #camp-activities-inquiry {
     width: 100%;
     min-width: var(--min-width);
     max-width: var(--max-width);
-    text-align: center;
     background: var(--back-color);
-    padding: 1em;
+    padding: 1rem;
 }
 
 #camp-activities-inquiry > h1 {
-    padding-bottom: 0.25em;
+    text-align: center;
+    padding-bottom: 0.25rem;
 }
 
 #camp-activities-inquiry > form {
     display: flex;
     flex-direction: column;
-    padding: 0.5em;
-    gap: 0.25em;
+    padding: 0.5rem;
+    /* gap: 1rem; */
     width: 100%;
     border-top: 1px solid black;
 }
@@ -50,17 +58,17 @@ body {
 #camp-activities-inquiry > form > :is(textarea, select) {
     width: 100%;
     resize: none;
-    padding: 0.1em;
+    padding: 0.1rem;
 }
 
 #camp-activities-inquiry > form > button {
     align-self: flex-end;
     width: 100%;
-    padding: 0.5em 1em;
+    padding: 0.5rem 1rem;
 }
 
 #camp-activities-inquiry > form > label {
-    padding: 0.5em 0 0.25em;
+    padding: 0.5rem 0 0.25rem;
 }
 
 /*
@@ -70,28 +78,18 @@ body {
     display:none;
 }
 
-#camp-activities-inquiry:has(option:checked)::after {
-    content: "";
-    display: block;
-    position: fixed;
-    bottom: 0; left: 0;
-    z-index: -1;
-    width: 100%;
-    height: 50%;
-    background-color: red;
+body:has(#camp-activities-inquiry option[value="hiking"]:checked) {
+    background: var(--hiking-img) no-repeat center/cover;
 }
-#camp-activities-inquiry:has(option[value="hiking"]:checked)::after {
-    background-color: green;
+body:has(#camp-activities-inquiry option[value="canoeing"]:checked) {
+    background: var(--canoeing-img) no-repeat center/cover;
 }
-#camp-activities-inquiry:has(option[value="canoeing"]:checked)::after {
-    background-color: blue;
+body:has(#camp-activities-inquiry option[value="fishing"]:checked) {
+    background: var(--fishing-img) no-repeat center/cover;
 }
-#camp-activities-inquiry:has(option[value="fishing"]:checked)::after {
-    background-color: cyan;
+body:has(#camp-activities-inquiry option[value="crafts"]:checked) {
+    background: var(--crafts-img) no-repeat center/cover;
 }
-#camp-activities-inquiry:has(option[value="crafts"]:checked)::after {
-    background-color: brown;
-}
-#camp-activities-inquiry:has(option[value="archery"]:checked)::after {
-    background-color: orange;
+body:has(#camp-activities-inquiry option[value="archery"]:checked) {
+    background: var(--archery-img) no-repeat center/cover;
 }
