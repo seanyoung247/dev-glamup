@@ -4,3 +4,32 @@
     padding: 0;
     margin: 0;
 }
+
+:root {
+    --min-width: 280px;
+    --max-width: 50em;
+
+    --back-color: #EEEEEEDD;
+}
+
+html,body {
+    min-height: 100dvh;
+    min-width: var(--min-width);
+    width: 100%;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('../images/lake.jpg') no-repeat center/cover;
+}
+
+#camp-activities-inquiry {
+    width: 100%;
+    min-width: var(--min-width);
+    max-width: var(--max-width);
+    text-align: center;
+    background: var(--back-color);
+    padding: 1em;
+}
