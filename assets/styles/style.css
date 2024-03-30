@@ -29,6 +29,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
     background: var(--back-img) no-repeat center/cover;
     transition: background-image 2s;
     will-change: background-image;
@@ -145,17 +146,16 @@ body:has(#camp-activities-inquiry option[value="archery"]:checked) {
 /*
  * Submission animation
  */
-
 #camp-activities-inquiry.submitting {
-    
+    animation: submit-anim 1s both;
 }
  
 @keyframes submit-anim {
     0% {
         translate: 0;
     }
-    5% {
-        translate: -20px;
+    10% {
+        translate: -10%;
     }
     100% {
         translate: calc(100vw + 100%);
