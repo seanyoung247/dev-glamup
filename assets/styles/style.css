@@ -1,4 +1,6 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
 * {
     box-sizing: border-box;
     padding: 0;
@@ -34,8 +36,11 @@ body {
     justify-content: center;
     align-items: center;
     overflow: hidden;
+
+    font-family: "Roboto", sans-serif;
     background: var(--back-img) no-repeat center/cover;
     color: var(--text-color);
+
     transition: background-image 2s;
     will-change: background-image;
 }
@@ -157,13 +162,13 @@ label:has(+ .invalid)::after {
 }
 
 #camp-activities-inquiry:has( .invalid) {
-    animation: invalid-anim 0.25s;
+    animation: invalid-anim 0.15s;
 }
 
 @keyframes invalid-anim {
     0% { translate: 0; }
-    25% { translate: -5%; }
-    75% { translate: 5%; }
+    25% { translate: -2.5%; }
+    75% { translate: 2.5%; }
     100% { translate: 0; }
 }
 
@@ -197,6 +202,7 @@ label:has(+ .invalid)::after {
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 1rem;
 
     background: var(--back-color);
     backdrop-filter: blur(10px);
