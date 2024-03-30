@@ -31,28 +31,29 @@
         });
     });
 
-    document.querySelector("#camp-activities-inquiry > form > button[type='submit']")
-        .addEventListener('click', e => {
-            e.preventDefault();
+    document.querySelector("#camp-activities-inquiry button[type='submit']")
+    .addEventListener('click', e => {
+        e.preventDefault();
 
-            if (activities.value === '') {
-                activities.classList.add('invalid');
-                // Forces the invalid animation to replay
-                section.style.animation = 'none';
-                section.offsetHeight;
-                section.style.animation = null;
-                return
-            }
+        if (activities.value === '') {
+            activities.classList.add('invalid');
+            activities.focus();
+            // Forces the invalid animation to replay
+            section.style.animation = 'none';
+            section.offsetHeight;
+            section.style.animation = null;
+            return
+        }
 
-            section.classList.add('submitting');
-            submitDialog.classList.add('submitting');
+        section.classList.add('submitting');
+        submitDialog.classList.add('submitting');
 
-            // Simulating callback to server:
-            setTimeout(() => {
-                submitDialog.classList.remove('submitting');
-                submitDialog.classList.add('submitted');
-                resetBtn.disabled = false;
-            }, 5000);
-        });
+        // Simulating callback to server:
+        setTimeout(() => {
+            submitDialog.classList.remove('submitting');
+            submitDialog.classList.add('submitted');
+            resetBtn.disabled = false;
+        }, 5000);
+    });
 
 })();
