@@ -1,9 +1,31 @@
+
 (()=>{
+
+    const section = document.querySelector('#camp-activities-inquiry');
+    const activities = document.querySelector('#activity-select');
+    activities.required = true;
+
+    activities.addEventListener('change', () => {
+        if (activities.value !== '') activities.classList.remove('invalid');
+    });
+
+    document.querySelectorAll('textarea').forEach(element => {
+        element.addEventListener('focusout', e => {
+            if (e.target.value !== '') e.target.classList.add('filled');
+            else e.target.classList.remove('filled');
+        });
+    });
 
     document.querySelector("#camp-activities-inquiry > form > button[type='submit']")
         .addEventListener('click', e => {
             e.preventDefault();
-            console.log('Submit clicked');
+            if (activities.value === '') {
+                activities.classList.add('invalid');
+                return
+            }
+
+            section.classList.add('submitting');
         });
 
-})()
+})();
+      

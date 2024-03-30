@@ -101,6 +101,22 @@ body::before {
     padding: 0.15rem 0.25rem 0.15rem;
     transition: translate 0.5s;
 }
+/* Animates label position */
+#camp-activities-inquiry > form > label:has(+ textarea:not(.filled)) {
+    translate: 0 100%;
+}
+#camp-activities-inquiry > form > label:has(+ textarea:focus) {
+    translate: 0 0;
+}
+
+.invalid {
+    border: 2px solid red;
+}
+label:has(+ .invalid) {
+    color: red;
+}
+label:has(+ .invalid)::after {
+    content: " (Please fill out this field)";
 }
 
 /*
@@ -124,4 +140,24 @@ body:has(#camp-activities-inquiry option[value="crafts"]:checked) {
 }
 body:has(#camp-activities-inquiry option[value="archery"]:checked) {
     background: var(--archery-img) no-repeat center/cover;
+}
+
+/*
+ * Submission animation
+ */
+
+#camp-activities-inquiry.submitting {
+    
+}
+ 
+@keyframes submit-anim {
+    0% {
+        translate: 0;
+    }
+    5% {
+        translate: -20px;
+    }
+    100% {
+        translate: calc(100vw + 100%);
+    }
 }
