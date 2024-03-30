@@ -16,6 +16,7 @@
         activities.options[0].selected = true;
         document.querySelectorAll('textarea').forEach(element => {
             element.value = '';
+            element.classList.remove('filled');
         });
     });
 
