@@ -13,6 +13,7 @@
     resetBtn.addEventListener('click', ()=>{
         section.className = '';
         submitDialog.className = '';
+        activities.options[0].selected = true;
     });
 
     activities.addEventListener('change', () => {
