@@ -14,6 +14,9 @@
         section.className = '';
         submitDialog.className = '';
         activities.options[0].selected = true;
+        document.querySelectorAll('textarea').forEach(element => {
+            element.value = '';
+        });
     });
 
     activities.addEventListener('change', () => {
