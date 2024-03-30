@@ -10,7 +10,11 @@
     --max-width: 650px;
 
     --back-color: #EEEEEEAA;
+    --text-color: black;
+    --accent-color: #800020;
+    --accent-dark: #420011;
 
+    /* Images sourced from Pexels and Unsplash */
     --back-img: url('../images/tents.jpg');
     --hiking-img: url('../images/hiking.jpg');
     --canoeing-img: url('../images/canoeing.jpg');
@@ -31,6 +35,7 @@ body {
     align-items: center;
     overflow: hidden;
     background: var(--back-img) no-repeat center/cover;
+    color: var(--text-color);
     transition: background-image 2s;
     will-change: background-image;
 }
@@ -68,7 +73,7 @@ body::before {
     flex-direction: column;
     padding: 0.5rem;
     width: 100%;
-    border-top: 1px solid black;
+    border-top: 1px solid var(--accent-color);
 }
 
 #camp-activities-inquiry > form > :is(textarea, select) {
@@ -80,21 +85,26 @@ body::before {
     border-radius: 0.5rem;
 }
 
+#reset-btn,
 #camp-activities-inquiry > form > button {
     align-self: flex-end;
     width: 100%;
     padding: 0.5rem 1rem;
     color: white;
-    background-color: green;
+    background-color: var(--accent-color);
     border: none;
-    border-bottom: 5px solid darkgreen;
+    border-bottom: 5px solid var(--accent-dark);
     border-radius: 0.5rem;
 }
 
+#reset-btn:active:not(:disabled),
 #camp-activities-inquiry > form > button:active {
     filter: brightness(125%);
     border-bottom: none;
     margin-top: 5px;
+}
+#reset-btn:disabled {
+    filter: brightness(75%);
 }
 
 #camp-activities-inquiry > form > label {
@@ -136,7 +146,7 @@ body:has(#camp-activities-inquiry option[value="archery"]:checked) {
 /*
  * Invalid form
  */
- .invalid {
+.invalid {
     border: 2px solid red;
 }
 label:has(+ .invalid) {
@@ -166,12 +176,106 @@ label:has(+ .invalid)::after {
  
 @keyframes submit-anim {
     0% {
-        translate: 0;
+        translate: 0 0;
     }
     10% {
-        translate: -10%;
+        translate: 0 10%;
     }
     100% {
-        translate: calc(100vw + 100%);
+        translate: 0 calc(-100vw + -100%);
+    }
+}
+
+/*
+ * Submission dialog
+ */
+#submit-dialog {
+    display: none;
+    position: absolute;
+}
+#submit-dialog:is(.submitted, .submitting) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background: var(--back-color);
+    backdrop-filter: blur(10px);
+    padding: 1rem;
+    border-radius: 1rem;
+}
+
+.submit-text {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--accent-color);
+}
+
+#submit-dialog.submitting .submit-text {
+    background: var(--accent-color)
+        linear-gradient(45deg, transparent 0%, #ffffffaa 50%, transparent 100%) 
+        0 0/50% no-repeat;
+    background-clip: text;
+    color: rgba(255, 255, 255, 0);
+    animation: shine 2.5s infinite;
+}
+
+#submit-dialog.submitting .submit-text::before {
+    content: "Submitting...";
+}
+#submit-dialog.submitted .submit-text::before {
+    content: "Submitted...";
+}
+
+#submit-dialog.submitting #reset-btn {
+    display: none;
+}
+
+@keyframes shine {
+	0% {
+		background-position-x: -250%;
+	}
+	100% {
+		background-position-x: 250%;
+	}
+}
+
+/* https://cssloaders.github.io/ */
+.loader {
+    width: 175px;
+    height: 80px;
+    display: block;
+    margin: auto;
+    background-image: radial-gradient(circle 25px at 25px 25px, #FFF 100%, transparent 0), radial-gradient(circle 50px at 50px 50px, #FFF 100%, transparent 0), radial-gradient(circle 25px at 25px 25px, #FFF 100%, transparent 0), linear-gradient(#FFF 50px, transparent 0);
+    background-size: 50px 50px, 100px 76px, 50px 50px, 120px 40px;
+    background-position: 0px 30px, 37px 0px, 122px 30px, 25px 40px;
+    background-repeat: no-repeat;
+    position: relative;
+    box-sizing: border-box;
+}
+.loader::after {
+    content: '';  
+    left: 0;
+    right: 0;
+    margin: auto;
+    bottom: 20px;
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 5px solid transparent;
+    border-color: var(--accent-color) transparent;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+#submit-dialog.submitted .loader {
+    display: none;
+}
+  
+@keyframes rotation {
+    0% {
+      rotate: 0deg;
+    }
+    100% {
+      rotate: 360deg;
     }
 }

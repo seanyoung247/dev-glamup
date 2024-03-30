@@ -8,6 +8,7 @@
     <title>Camp Activities</title>
 </head>
 <body>
+    <!-- Challenge HTML -->
     <section id="camp-activities-inquiry">
         <h1>Camp Activities Inquiry</h1>
         <form action="/submit-form" method="POST">
@@ -30,5 +31,14 @@
             <button type="submit">Submit</button>
         </form>
     </section>
+    <!-- /Challenge HTML -->
+
+    <template id="submit-template">
+        <div id="submit-dialog">
+            <div class="loader"></div>
+            <p class="submit-text"></p>
+            <button disabled id="reset-btn">Reset</button>
+        </div>
+    </template>
 </body>
 </html>
