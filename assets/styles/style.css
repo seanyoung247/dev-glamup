@@ -7,9 +7,9 @@
 
 :root {
     --min-width: 280px;
-    --max-width: 50rem;
+    --max-width: 650px;
 
-    --back-color: #EEEEEEDD;
+    --back-color: #EEEEEEAA;
 
     --back-img: url('../images/tents.jpg');
     --hiking-img: url('../images/hiking.jpg');
@@ -31,8 +31,17 @@ body {
     align-items: center;
     background: var(--back-img) no-repeat center/cover;
     transition: background-image 2s;
+    will-change: background-image;
+}
+/* 'Preloads' background images, seems more reliable than link */
+body::before {
+    content: var(--hiking-img) var(--canoeing-img) var(--fishing-img) var(--crafts-img) var(--archery-img);
+    position: absolute; width: 0; height: 0; overflow: hidden; z-index: -1;
 }
 
+/*
+ * Form styling
+ */
 #camp-activities-inquiry {
     width: 100%;
     min-width: var(--min-width);
