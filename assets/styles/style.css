@@ -1,4 +1,6 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
 * {
     box-sizing: border-box;
     padding: 0;
@@ -7,10 +9,14 @@
 
 :root {
     --min-width: 280px;
-    --max-width: 50rem;
+    --max-width: 650px;
 
-    --back-color: #EEEEEEDD;
+    --back-color: #EEEEEEAA;
+    --text-color: black;
+    --accent-color: #800020;
+    --accent-dark: #420011;
 
+    /* Images sourced from Pexels and Unsplash */
     --back-img: url('../images/tents.jpg');
     --hiking-img: url('../images/hiking.jpg');
     --canoeing-img: url('../images/canoeing.jpg');
@@ -29,16 +35,37 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
+
+    font-family: "Roboto", sans-serif;
     background: var(--back-img) no-repeat center/cover;
+    color: var(--text-color);
+
     transition: background-image 2s;
+    will-change: background-image;
+}
+/* 'Preloads' background images, seems more reliable than link */
+body::before {
+    content: var(--hiking-img) var(--canoeing-img) var(--fishing-img) var(--crafts-img) var(--archery-img);
+    position: absolute; width: 0; height: 0; overflow: hidden; z-index: -1;
 }
 
+/*
+ * Form styling
+ */
 #camp-activities-inquiry {
     width: 100%;
     min-width: var(--min-width);
     max-width: var(--max-width);
     background: var(--back-color);
+    backdrop-filter: blur(10px);
     padding: 1rem;
+}
+
+@media screen and (min-width: 650px) {
+    #camp-activities-inquiry {
+        border-radius: 1rem;
+    }
 }
 
 #camp-activities-inquiry > h1 {
@@ -50,25 +77,52 @@ body {
     display: flex;
     flex-direction: column;
     padding: 0.5rem;
-    /* gap: 1rem; */
     width: 100%;
-    border-top: 1px solid black;
+    border-top: 1px solid var(--accent-color);
 }
 
 #camp-activities-inquiry > form > :is(textarea, select) {
     width: 100%;
     resize: none;
-    padding: 0.1rem;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    background-color: transparent;
+    border-radius: 0.5rem;
 }
 
+#reset-btn,
 #camp-activities-inquiry > form > button {
     align-self: flex-end;
     width: 100%;
     padding: 0.5rem 1rem;
+    color: white;
+    background-color: var(--accent-color);
+    border: none;
+    border-bottom: 5px solid var(--accent-dark);
+    border-radius: 0.5rem;
+}
+
+#reset-btn:active:not(:disabled),
+#camp-activities-inquiry > form > button:active {
+    filter: brightness(125%);
+    border-bottom: none;
+    margin-top: 5px;
+}
+#reset-btn:disabled {
+    filter: brightness(75%);
 }
 
 #camp-activities-inquiry > form > label {
-    padding: 0.5rem 0 0.25rem;
+    font-weight: bold;
+    padding: 0.15rem 0.25rem 0.15rem;
+    transition: translate 0.5s;
+}
+/* Animates label position */
+#camp-activities-inquiry > form > label:has(+ textarea:not(.filled)) {
+    translate: 0 100%;
+}
+#camp-activities-inquiry > form > label:has(+ textarea:focus) {
+    translate: 0 0;
 }
 
 /*
@@ -92,4 +146,142 @@ body:has(#camp-activities-inquiry option[value="crafts"]:checked) {
 }
 body:has(#camp-activities-inquiry option[value="archery"]:checked) {
     background: var(--archery-img) no-repeat center/cover;
+}
+
+/*
+ * Invalid form
+ */
+.invalid {
+    border: 2px solid red;
+}
+label:has(+ .invalid) {
+    color: red;
+}
+label:has(+ .invalid)::after {
+    content: " (Please fill out this field)";
+}
+
+#camp-activities-inquiry:has( .invalid) {
+    animation: invalid-anim 0.15s;
+}
+
+@keyframes invalid-anim {
+    0% { translate: 0; }
+    25% { translate: -2.5%; }
+    75% { translate: 2.5%; }
+    100% { translate: 0; }
+}
+
+/*
+ * Submission animation
+ */
+#camp-activities-inquiry.submitting {
+    animation: submit-anim 1s both;
+}
+ 
+@keyframes submit-anim {
+    0% {
+        translate: 0 0;
+    }
+    10% {
+        translate: 0 10%;
+    }
+    100% {
+        translate: 0 calc(-100vw + -100%);
+    }
+}
+
+/*
+ * Submission dialog
+ */
+#submit-dialog {
+    display: none;
+    position: absolute;
+}
+#submit-dialog:is(.submitted, .submitting) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+
+    background: var(--back-color);
+    backdrop-filter: blur(10px);
+    padding: 1rem;
+    border-radius: 1rem;
+}
+
+.submit-text {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--accent-color);
+}
+
+#submit-dialog.submitting .submit-text {
+    background: var(--accent-color)
+        linear-gradient(45deg, transparent 0%, #ffffffaa 50%, transparent 100%) 
+        0 0/50% no-repeat;
+    background-clip: text;
+    color: rgba(255, 255, 255, 0);
+    animation: shine 2.5s infinite;
+}
+
+#submit-dialog.submitting .submit-text::before {
+    content: "Submitting...";
+}
+#submit-dialog.submitted .submit-text::before {
+    content: "Submitted...";
+}
+
+#submit-dialog.submitting #reset-btn {
+    display: none;
+}
+
+@keyframes shine {
+	0% {
+		background-position-x: -250%;
+	}
+	100% {
+		background-position-x: 250%;
+	}
+}
+
+/* https://cssloaders.github.io/ */
+.loader {
+    width: 175px;
+    height: 80px;
+    display: block;
+    margin: auto;
+    background-image: radial-gradient(circle 25px at 25px 25px, #FFF 100%, transparent 0), radial-gradient(circle 50px at 50px 50px, #FFF 100%, transparent 0), radial-gradient(circle 25px at 25px 25px, #FFF 100%, transparent 0), linear-gradient(#FFF 50px, transparent 0);
+    background-size: 50px 50px, 100px 76px, 50px 50px, 120px 40px;
+    background-position: 0px 30px, 37px 0px, 122px 30px, 25px 40px;
+    background-repeat: no-repeat;
+    position: relative;
+    box-sizing: border-box;
+}
+.loader::after {
+    content: '';  
+    left: 0;
+    right: 0;
+    margin: auto;
+    bottom: 20px;
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 5px solid transparent;
+    border-color: var(--accent-color) transparent;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+#submit-dialog.submitted .loader {
+    display: none;
+}
+  
+@keyframes rotation {
+    0% {
+      rotate: 0deg;
+    }
+    100% {
+      rotate: 360deg;
+    }
 }
