@@ -229,7 +229,7 @@ label:has(+ .invalid)::after {
     content: "Submitting...";
 }
 #submit-dialog.submitted .submit-text::before {
-    content: "Submitted...";
+    content: "Submitted.";
 }
 
 #submit-dialog.submitting #reset-btn {
