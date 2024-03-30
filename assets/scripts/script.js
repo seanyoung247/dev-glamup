@@ -4,6 +4,7 @@
     const section = document.querySelector('#camp-activities-inquiry');
     const activities = document.querySelector('#activity-select');
     const loadingTemp = document.querySelector('#submit-template');
+    const submitBtn = document.querySelector("#camp-activities-inquiry button[type='submit']");
     activities.required = true;
 
     const submitDialog = loadingTemp.content.firstElementChild.cloneNode(true);
@@ -14,6 +15,7 @@
         section.className = '';
         submitDialog.className = '';
         activities.options[0].selected = true;
+        submitBtn.disabled = false;
         document.querySelectorAll('textarea').forEach(element => {
             element.value = '';
             element.classList.remove('filled');
@@ -31,8 +33,7 @@
         });
     });
 
-    document.querySelector("#camp-activities-inquiry button[type='submit']")
-    .addEventListener('click', e => {
+    submitBtn.addEventListener('click', e => {
         e.preventDefault();
 
         if (activities.value === '') {
@@ -45,6 +46,7 @@
             return
         }
 
+        submitBtn.disabled = true;
         section.classList.add('submitting');
         submitDialog.classList.add('submitting');
 
