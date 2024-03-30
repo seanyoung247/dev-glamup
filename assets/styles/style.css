@@ -91,7 +91,7 @@ body::before {
 }
 
 #reset-btn,
-#camp-activities-inquiry > form > button {
+#camp-activities-inquiry button {
     align-self: flex-end;
     width: 100%;
     padding: 0.5rem 1rem;
@@ -103,7 +103,7 @@ body::before {
 }
 
 #reset-btn:active:not(:disabled),
-#camp-activities-inquiry > form > button:active {
+#camp-activities-inquiry button:active {
     filter: brightness(125%);
     border-bottom: none;
     margin-top: 5px;
@@ -112,23 +112,23 @@ body::before {
     filter: brightness(75%);
 }
 
-#camp-activities-inquiry > form > label {
+#camp-activities-inquiry label {
     font-weight: bold;
     padding: 0.15rem 0.25rem 0.15rem;
     transition: translate 0.5s;
 }
 /* Animates label position */
-#camp-activities-inquiry > form > label:has(+ textarea:not(.filled)) {
+#camp-activities-inquiry label:has(+ textarea:not(.filled)) {
     translate: 0 100%;
 }
-#camp-activities-inquiry > form > label:has(+ textarea:focus) {
+#camp-activities-inquiry label:has(+ textarea:focus) {
     translate: 0 0;
 }
 
 /*
  * Activity Selection
  */
-#activity-select > option[value=""] {
+#activity-select > option[value=""]:not(:checked) {
     display:none;
 }
 
@@ -152,7 +152,7 @@ body:has(#camp-activities-inquiry option[value="archery"]:checked) {
  * Invalid form
  */
 .invalid {
-    border: 2px solid red;
+    outline: 2px solid red;
 }
 label:has(+ .invalid) {
     color: red;
