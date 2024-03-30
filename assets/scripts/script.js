@@ -21,6 +21,10 @@
             e.preventDefault();
             if (activities.value === '') {
                 activities.classList.add('invalid');
+                // Forces the invalid animation to replay
+                section.style.animation = 'none';
+                section.offsetHeight;
+                section.style.animation = null;
                 return
             }
 
